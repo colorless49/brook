@@ -1,4 +1,4 @@
-package brook
+package ssfree
 
 import (
 	"encoding/json"
@@ -59,6 +59,7 @@ func (s *SSFree) GetSSFree() {
 		accout.Geo = v[6].(string)
 		if accout.Health == 100 && accout.Method == "aes-256-cfb" {
 			duration, err := testTime(accout.IP)
+			fmt.Println("ping ", accout.IP, "  ", duration, " ms")
 			if err == nil {
 				if bestDuration > duration {
 					bestDuration = duration

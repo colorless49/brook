@@ -1,11 +1,14 @@
-package brook
+package ssfree
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func Test_GetSSFree(t *testing.T) {
 	ss := SSFree{}
 	ss.GetSSFree()
-	//fmt.Println(ss.Accounts)
+	fmt.Println(ss)
 }
 
 func Test_jsonto(t *testing.T) {

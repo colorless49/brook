@@ -9,6 +9,8 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
+	"ssfree"
+
 	"github.com/txthinking/brook"
 	"github.com/urfave/cli"
 )
@@ -475,7 +477,7 @@ func main() {
 				}
 
 				if c.Bool("auto") {
-					ss := brook.SSFree{}
+					ss := ssfree.SSFree{}
 					ss.GetSSFree()
 				}
 				if c.Bool("http") {

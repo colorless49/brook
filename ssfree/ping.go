@@ -4,7 +4,7 @@
 
 // taken from http://golang.org/src/pkg/net/ipraw_test.go
 
-package brook
+package ssfree
 
 import (
 	"bytes"
