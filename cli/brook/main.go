@@ -420,6 +420,10 @@ func main() {
 			Name:  "ssclient",
 			Usage: "Run as shadowsocks client mode, fixed method is aes-256-cfb",
 			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name:  "auto,a",
+					Usage: "Client will auto test ssServer,and auto run as http proxy.",
+				},
 				cli.StringFlag{
 					Name:  "listen, l",
 					Usage: "Client listen address, like: 127.0.0.1:1080",
@@ -468,6 +472,11 @@ func main() {
 				}
 				if debug {
 					enableDebug()
+				}
+
+				if c.Bool("auto") {
+					ss := brook.SSFree{}
+					ss.GetSSFree()
 				}
 				if c.Bool("http") {
 					return brook.RunSSClientAsHTTP(c.String("listen"), c.String("ip"), c.String("server"), c.String("password"), c.Int("tcpTimeout"), c.Int("tcpDeadline"), c.Int("udpDeadline"), c.Int("udpSessionTime"))
