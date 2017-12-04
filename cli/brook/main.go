@@ -9,9 +9,9 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
-	"ssfree"
+	"github.com/colorless49/brook/ssfree"
 
-	"github.com/txthinking/brook"
+	"github.com/colorless49/brook"
 	"github.com/urfave/cli"
 )
 
@@ -468,7 +468,7 @@ func main() {
 				},
 			},
 			Action: func(c *cli.Context) error {
-				if c.String("listen") == "" || c.String("ip") == "" || c.String("server") == "" || c.String("password") == "" {
+				if !c.Bool("auto") && (c.String("listen") == "" || c.String("ip") == "" || c.String("server") == "" || c.String("password") == "") {
 					cli.ShowCommandHelp(c, "ssclient")
 					return nil
 				}
@@ -479,6 +479,19 @@ func main() {
 				if c.Bool("auto") {
 					ss := ssfree.SSFree{}
 					ss.GetSSFree()
+					account := ss.Accounts[ss.Best]
+					listen := c.String("listen")
+					ip := c.String("ip")
+					if listen == "" {
+						listen = "127.0.0.1:1080"
+					}
+
+					if listen == "" {
+						ip = "127.0.0.1"
+					}
+					server := account.IP + ":" + account.Port
+					log.Println("start connect ", server)
+					return brook.RunSSClientAsHTTP(listen, ip, server, account.Password, c.Int("tcpTimeout"), c.Int("tcpDeadline"), c.Int("udpDeadline"), c.Int("udpSessionTime"))
 				}
 				if c.Bool("http") {
 					return brook.RunSSClientAsHTTP(c.String("listen"), c.String("ip"), c.String("server"), c.String("password"), c.Int("tcpTimeout"), c.Int("tcpDeadline"), c.Int("udpDeadline"), c.Int("udpSessionTime"))

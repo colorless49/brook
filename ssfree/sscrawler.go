@@ -12,7 +12,7 @@ import (
 //SSFree is SSClient Free Acounts
 type SSFree struct {
 	Accounts []SSAccount
-	best     int
+	Best     int
 }
 
 //SSAccount is one account
@@ -46,7 +46,7 @@ func (s *SSFree) GetSSFree() {
 		return
 	}
 	bestDuration := 1000
-	s.best = -1
+	s.Best = -1
 	for _, v := range ssAounts["data"] {
 		idx := v[0].(float64)
 		var accout SSAccount
@@ -63,7 +63,7 @@ func (s *SSFree) GetSSFree() {
 			if err == nil {
 				if bestDuration > duration {
 					bestDuration = duration
-					s.best = len(s.Accounts)
+					s.Best = len(s.Accounts)
 				}
 				s.Accounts = append(s.Accounts, accout)
 			}

@@ -238,18 +238,18 @@ func (x *SSClient) ListenAndServeHTTP(m HTTPMiddleman) error {
 			defer c.Close()
 			if x.TCPTimeout != 0 {
 				if err := c.SetKeepAlivePeriod(time.Duration(x.TCPTimeout) * time.Second); err != nil {
-					log.Println(err)
+					log.Println("by zza timeout:", err)
 					return
 				}
 			}
 			if x.TCPDeadline != 0 {
 				if err := c.SetDeadline(time.Now().Add(time.Duration(x.TCPDeadline) * time.Second)); err != nil {
-					log.Println(err)
+					log.Println("by zza deadline:", err)
 					return
 				}
 			}
 			if err := x.HTTPHandle(c); err != nil {
-				log.Println(err)
+				log.Println("by zza handle:", err)
 				return
 			}
 		}(c)
@@ -343,7 +343,7 @@ func (x *SSClient) HTTPHandle(c *net.TCPConn) error {
 	go func() {
 		iv := make([]byte, aes.BlockSize)
 		if _, err := io.ReadFull(crc, iv); err != nil {
-			log.Println(err)
+			log.Println("by zza readfull:", err)
 			return
 		}
 		_, _ = io.Copy(c, crc)

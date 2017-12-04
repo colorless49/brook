@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
+	"github.com/colorless49/brook"
+	"github.com/colorless49/brook/sysproxy"
 	"github.com/getlantern/systray"
 	"github.com/skratchdot/open-golang/open"
-	"github.com/txthinking/brook"
-	"github.com/txthinking/brook/sysproxy"
 )
 
 const pac = "http://local.txthinking.com:1980/pac"
